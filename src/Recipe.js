@@ -1,23 +1,29 @@
 import React from 'react'
 
 export default function Recipe({recipeData}) {
+
   console.log(recipeData)
-  const title = recipeData.label
-  const image = recipeData.image
-  const healthLabels = recipeData.healthLabels
   return (
     <div className='card'>
-      <div className='h6 card-header'>{title}</div>
-      <div className='row card-body'>
-          <div className='col-4'>
-            <img className='card-img img-fluid rounded-circle' alt={title} src={image}></img>
-          </div>
-          <div className='col-8'>
-            <p>{healthLabels.join(", ")}</p>
-          </div>
+        <div className='h6 card-header'>{recipeData.title}</div>
+      <div className="card-body">
+        <div className='row'>
+          <div className='col'>
+            <img className='float-left img-fluid img-thumbnail' alt={recipeData.title} src={recipeData.image}></img>
+          </div>  
+          <div className='col-9'>
+            <div className='h6'>Benefits: {recipeData.healthLabels.join(', ')}</div>
+            <div>Yields: {recipeData.yield}</div>
+            <div>Cautions: {recipeData.cautions.join(', ')}</div>
+            <div>TotalTime: {recipeData.totalTime}</div>
+            <div>Calories: {Math.round(recipeData.calories)}</div>
 
-    
+          </div>  
+        </div>
+
+       
       </div>
+          
     </div>
   )
 }

@@ -24,13 +24,12 @@ const App = () => {
     setLoading(false) 
   }
 
-  const str = ['a','b']
   if (loading){
    return <div>Loading...</div>   
   }
   return (
     
-
+    <>
     <div className='container'>
       <h1>Hello React</h1>
       <form className='search-form'>
@@ -38,14 +37,16 @@ const App = () => {
         <button className='search-button' type='submit'>Search</button>
       </form>
       <RecipeList recipes={recipes}/>
-      <footer className="blockquote-footer bg-white">
-            <div className="container my-auto">
-                <div className="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2019</span>
+      
+    </div>
+    <footer className="footer bg-dark">
+            <div className="container">
+                <div className="row text-center">
+                    <div className="col text-white">Copyright &copy; Your Website 2019</div>
                 </div>
             </div>
-        </footer>
-    </div>
+      </footer>
+    </>
   );
 }
 

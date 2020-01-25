@@ -1,20 +1,24 @@
 import React, {useEffect, useState} from 'react';
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
 import RecipeList from './RecipeList.js'
 
 const App = () => {
 
-  const APP_ID = '17fb4aa4'
-  const APP_KEY = '4b2b90b9ea37e0ead53f902e402ddc47'
-  const exampleReq = `https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`
   let [loading, setLoading] = useState(false)
   const [recipes, setRecipes] = useState([])
+  const [search, setSearch] = useState('');
+  const [query, setQuery] = useState('chicken');
 
+  const APP_ID = '17fb4aa4'
+  const APP_KEY = '4b2b90b9ea37e0ead53f902e402ddc47'
+  const exampleReq = `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`
+  
+  
   useEffect(() => {
    getRecipes()
 
-  }, [])
+  }, [query])
 
   const getRecipes = async () => {
     setLoading(true) 
@@ -24,29 +28,44 @@ const App = () => {
     setLoading(false) 
   }
 
+  const updateSearch = event => {
+    setSearch(event.target.value)
+  }
+
+  const getSearch = event =>{
+    event.preventDefault();
+    setQuery(search);
+    setSearch('')
+  }
+
+
+  let recipeTag
+
   if (loading){
-   return <div>Loading...</div>   
+    recipeTag = <div>Loading...</div>   
+  } else {
+    recipeTag = <RecipeList recipes={recipes}/>
   }
   return (
     
-    <>
+  <>
     <div className='container'>
-      <h1>Hello React</h1>
-      <form className='search-form'>
-        <input className='search-bar' type='text'></input>
-        <button className='search-button' type='submit'>Search</button>
+      <div className='h2 pretty-title'>Recipes for You</div>
+      <form id='search-form' onSubmit={getSearch}>
+      <input placeholder='search for an ingredient' id='search-bar' type='text' value={search}  onChange={updateSearch}></input>
+        <button id='search-button' type='submit'>Search</button>
       </form>
-      <RecipeList recipes={recipes}/>
+      {recipeTag}
       
     </div>
     <footer className="footer bg-dark">
-            <div className="container">
-                <div className="row text-center">
-                    <div className="col text-white">Copyright &copy; Your Website 2019</div>
-                </div>
-            </div>
-      </footer>
-    </>
+      <div className="container">
+          <div className="row text-center">
+              <div className="col text-white">Copyright &copy; Your Website 2019</div>
+          </div>
+      </div>
+    </footer>
+  </>
   );
 }
 

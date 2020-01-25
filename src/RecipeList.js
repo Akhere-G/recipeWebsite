@@ -1,7 +1,6 @@
 import React from 'react'
 import Recipe from './Recipe.js'
 export default function RecipeList({recipes}) {
-  let count = 0
   return (
     <div >
       {
